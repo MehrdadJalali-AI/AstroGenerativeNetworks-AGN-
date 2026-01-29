@@ -1,0 +1,694 @@
+/Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/torch_geometric/typing.py:68: UserWarning: An issue occurred while importing 'pyg-lib'. Disabling its usage. Stacktrace: dlopen(/Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/libpyg.so, 0x0006): Library not loaded: /Library/Frameworks/Python.framework/Versions/3.9/Python
+  Referenced from: <2695749E-A917-3F14-B0DA-2A4914D2853D> /Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/libpyg.so
+  Reason: tried: '/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file), '/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file)
+  warnings.warn(f"An issue occurred while importing 'pyg-lib'. "
+/Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/torch_geometric/typing.py:124: UserWarning: An issue occurred while importing 'torch-sparse'. Disabling its usage. Stacktrace: dlopen(/Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/libpyg.so, 0x0006): Library not loaded: /Library/Frameworks/Python.framework/Versions/3.9/Python
+  Referenced from: <2695749E-A917-3F14-B0DA-2A4914D2853D> /Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/libpyg.so
+  Reason: tried: '/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file), '/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file)
+  warnings.warn(f"An issue occurred while importing 'torch-sparse'. "
+================================================================================
+GENERALIZED ASTRO GENERATIVE NETWORK (AGN)
+================================================================================
+Using device: cpu
+Dataset portion: 100.0%
+Number of generated nodes: 100
+================================================================================
+
+
+================================================================================
+Processing Dataset: KARATE
+================================================================================
+
+Loaded karate dataset:
+  Nodes: 1200
+  Edges: 95914
+  Features shape: (1200, 4)
+
+Model Architecture:
+  Input features: 4
+  Hidden dimension: 64
+  Latent dimension: 32
+  GCN layers: 2
+
+Training model...
+Starting training for 200 epochs...
+Training on cpu
+Nodes: 1200, Features: 4
+Epoch 10/200, Loss: 4.6104
+Epoch 20/200, Loss: 4.4404
+Epoch 30/200, Loss: 4.3386
+Epoch 40/200, Loss: 4.2979
+Epoch 50/200, Loss: 4.2730
+Epoch 60/200, Loss: 4.2802
+Epoch 70/200, Loss: 4.2897
+Epoch 80/200, Loss: 4.1828
+Epoch 90/200, Loss: 4.2203
+Epoch 100/200, Loss: 4.2193
+Early stopping at epoch 100
+Training completed. Best loss: 4.1828
+
+Generating new nodes...
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 101864
+  New edges: 5950
+
+Evaluating results...
+Metrics comparison saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/karate_network_metrics_comparison.csv
+Novelty analysis saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/karate_novelty_analysis.csv
+Evaluation plots saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/plots
+
+================================================================================
+EVALUATION REPORT: KARATE
+================================================================================
+
+Topology Metrics:
+  Nodes: 1200 -> 1300 (+100)
+  Edges: 95914 -> 101864 (+5950)
+  Density: 0.133325 -> 0.120642
+  Avg Degree: 159.86 -> 156.71
+  Clustering: 0.1974 -> 0.2484
+  Avg Path Length: 1.8667 -> 1.9099
+  Modularity: 0.4138 -> 0.4360
+  Assortativity: -0.0032 -> 0.3854
+
+Novelty Analysis:
+  Average Novelty Score: 1.0000 ± 0.9168
+  Novelty Percentage (threshold-based): 75.0%
+  Avg Min Distance to Original: 0.0002
+  Avg Mean Distance to Original: 0.0367
+  Duplication Rate: 0.0000
+================================================================================
+
+
+Running comprehensive evaluation with baselines...
+
+============================================================
+Evaluating AGN on karate
+============================================================
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 101864
+  New edges: 5950
+
+Evaluating Random Attachment baseline...
+
+Evaluating Preferential Attachment baseline...
+
+Evaluating kNN Feature Space baseline...
+
+Evaluating Vanilla VGAE baseline...
+
+Results saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results
+  - karate_baseline_topology_comparison.csv
+  - karate_baseline_task_comparison.csv
+  - karate_baseline_novelty_comparison.csv
+  - karate_comprehensive_results.json
+✓ Comprehensive evaluation completed for karate
+
+Running ablation study...
+
+============================================================
+Ablation: Without Similarity Insertion
+============================================================
+
+============================================================
+Ablation: Without Decoder (Pure kNN)
+============================================================
+
+============================================================
+Sensitivity Analysis: Varying k and threshold
+============================================================
+
+Sensitivity: k=5, threshold=0.3
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 101364
+  New edges: 5450
+
+Sensitivity: k=5, threshold=0.5
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 101364
+  New edges: 5450
+
+Sensitivity: k=5, threshold=0.7
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 101364
+  New edges: 5450
+
+Sensitivity: k=10, threshold=0.3
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 101864
+  New edges: 5950
+
+Sensitivity: k=10, threshold=0.5
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 101864
+  New edges: 5950
+
+Sensitivity: k=10, threshold=0.7
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 101864
+  New edges: 5950
+
+Sensitivity: k=20, threshold=0.3
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 102864
+  New edges: 6950
+
+Sensitivity: k=20, threshold=0.5
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 102864
+  New edges: 6950
+
+Sensitivity: k=20, threshold=0.7
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 102864
+  New edges: 6950
+✓ Ablation study completed for karate
+✓ Completed karate
+
+================================================================================
+Processing Dataset: FACEBOOK
+================================================================================
+
+Loaded facebook dataset:
+  Nodes: 1500
+  Edges: 98186
+  Features shape: (1500, 5)
+
+Model Architecture:
+  Input features: 5
+  Hidden dimension: 64
+  Latent dimension: 32
+  GCN layers: 2
+
+Training model...
+Starting training for 200 epochs...
+Training on cpu
+Nodes: 1500, Features: 5
+Epoch 10/200, Loss: 4.6799
+Epoch 20/200, Loss: 4.4476
+Epoch 30/200, Loss: 4.3391
+Epoch 40/200, Loss: 4.2873
+Epoch 50/200, Loss: 4.2349
+Epoch 60/200, Loss: 4.2888
+Epoch 70/200, Loss: 4.2641
+Early stopping at epoch 73
+Training completed. Best loss: 4.1970
+
+Generating new nodes...
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 104136
+  New edges: 5950
+
+Evaluating results...
+Metrics comparison saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/facebook_network_metrics_comparison.csv
+Novelty analysis saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/facebook_novelty_analysis.csv
+Evaluation plots saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/plots
+
+================================================================================
+EVALUATION REPORT: FACEBOOK
+================================================================================
+
+Topology Metrics:
+  Nodes: 1500 -> 1600 (+100)
+  Edges: 98186 -> 104136 (+5950)
+  Density: 0.087335 -> 0.081407
+  Avg Degree: 130.91 -> 130.17
+  Clustering: 0.4361 -> 0.4595
+  Avg Path Length: 2.7776 -> 2.7179
+  Modularity: 0.7988 -> 0.7852
+  Assortativity: -0.0013 -> 0.1761
+
+Novelty Analysis:
+  Average Novelty Score: 1.0000 ± 0.8019
+  Novelty Percentage (threshold-based): 75.0%
+  Avg Min Distance to Original: 0.0008
+  Avg Mean Distance to Original: 0.0274
+  Duplication Rate: 0.0000
+================================================================================
+
+
+Running comprehensive evaluation with baselines...
+
+============================================================
+Evaluating AGN on facebook
+============================================================
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 104136
+  New edges: 5950
+
+Evaluating Random Attachment baseline...
+
+Evaluating Preferential Attachment baseline...
+
+Evaluating kNN Feature Space baseline...
+
+Evaluating Vanilla VGAE baseline...
+
+Results saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results
+  - facebook_baseline_topology_comparison.csv
+  - facebook_baseline_task_comparison.csv
+  - facebook_baseline_novelty_comparison.csv
+  - facebook_comprehensive_results.json
+✓ Comprehensive evaluation completed for facebook
+
+Running ablation study...
+
+============================================================
+Ablation: Without Similarity Insertion
+============================================================
+
+============================================================
+Ablation: Without Decoder (Pure kNN)
+============================================================
+
+============================================================
+Sensitivity Analysis: Varying k and threshold
+============================================================
+
+Sensitivity: k=5, threshold=0.3
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 103636
+  New edges: 5450
+
+Sensitivity: k=5, threshold=0.5
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 103636
+  New edges: 5450
+
+Sensitivity: k=5, threshold=0.7
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 103636
+  New edges: 5450
+
+Sensitivity: k=10, threshold=0.3
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 104136
+  New edges: 5950
+
+Sensitivity: k=10, threshold=0.5
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 104136
+  New edges: 5950
+
+Sensitivity: k=10, threshold=0.7
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 104136
+  New edges: 5950
+
+Sensitivity: k=20, threshold=0.3
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 105136
+  New edges: 6950
+
+Sensitivity: k=20, threshold=0.5
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 105136
+  New edges: 6950
+
+Sensitivity: k=20, threshold=0.7
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 105136
+  New edges: 6950
+✓ Ablation study completed for facebook
+✓ Completed facebook
+
+================================================================================
+Processing Dataset: EMAIL
+================================================================================
+
+Loaded email dataset:
+  Nodes: 2000
+  Edges: 7984
+  Features shape: (2000, 6)
+
+Model Architecture:
+  Input features: 6
+  Hidden dimension: 64
+  Latent dimension: 32
+  GCN layers: 2
+
+Training model...
+Starting training for 200 epochs...
+Training on cpu
+Nodes: 2000, Features: 6
+Epoch 10/200, Loss: 4.5425
+Epoch 20/200, Loss: 4.4878
+Epoch 30/200, Loss: 4.3836
+Epoch 40/200, Loss: 4.2594
+Epoch 50/200, Loss: 4.1976
+Epoch 60/200, Loss: 4.1894
+Epoch 70/200, Loss: 4.1811
+Epoch 80/200, Loss: 4.1460
+Early stopping at epoch 88
+Training completed. Best loss: 4.0104
+
+Generating new nodes...
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 13934
+  New edges: 5950
+
+Evaluating results...
+Metrics comparison saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/email_network_metrics_comparison.csv
+Novelty analysis saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/email_novelty_analysis.csv
+Evaluation plots saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/plots
+
+================================================================================
+EVALUATION REPORT: EMAIL
+================================================================================
+
+Topology Metrics:
+  Nodes: 2000 -> 2100 (+100)
+  Edges: 7984 -> 13934 (+5950)
+  Density: 0.003994 -> 0.006322
+  Avg Degree: 7.98 -> 13.27
+  Clustering: 0.0199 -> 0.0688
+  Avg Path Length: 3.4098 -> 3.3864
+  Modularity: 0.3243 -> 0.4678
+  Assortativity: -0.0454 -> 0.7667
+
+Novelty Analysis:
+  Average Novelty Score: 1.0000 ± 0.0708
+  Novelty Percentage (threshold-based): 75.0%
+  Avg Min Distance to Original: 0.1060
+  Avg Mean Distance to Original: 0.4025
+  Duplication Rate: 0.0000
+================================================================================
+
+
+Running comprehensive evaluation with baselines...
+
+============================================================
+Evaluating AGN on email
+============================================================
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 13934
+  New edges: 5950
+
+Evaluating Random Attachment baseline...
+
+Evaluating Preferential Attachment baseline...
+
+Evaluating kNN Feature Space baseline...
+
+Evaluating Vanilla VGAE baseline...
+
+Results saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results
+  - email_baseline_topology_comparison.csv
+  - email_baseline_task_comparison.csv
+  - email_baseline_novelty_comparison.csv
+  - email_comprehensive_results.json
+✓ Comprehensive evaluation completed for email
+
+Running ablation study...
+
+============================================================
+Ablation: Without Similarity Insertion
+============================================================
+
+============================================================
+Ablation: Without Decoder (Pure kNN)
+============================================================
+
+============================================================
+Sensitivity Analysis: Varying k and threshold
+============================================================
+
+Sensitivity: k=5, threshold=0.3
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 13434
+  New edges: 5450
+
+Sensitivity: k=5, threshold=0.5
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 13434
+  New edges: 5450
+
+Sensitivity: k=5, threshold=0.7
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 13434
+  New edges: 5450
+
+Sensitivity: k=10, threshold=0.3
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 13934
+  New edges: 5950
+
+Sensitivity: k=10, threshold=0.5
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 13934
+  New edges: 5950
+
+Sensitivity: k=10, threshold=0.7
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 13934
+  New edges: 5950
+
+Sensitivity: k=20, threshold=0.3
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 14934
+  New edges: 6950
+
+Sensitivity: k=20, threshold=0.5
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 14934
+  New edges: 6950
+
+Sensitivity: k=20, threshold=0.7
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 14934
+  New edges: 6950
+✓ Ablation study completed for email
+✓ Completed email
+
+================================================================================
+FINAL SUMMARY
+================================================================================
+
+KARATE:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 101864
+  Novelty score: 1.0000
+  Novelty percentage: 75.0%
+
+FACEBOOK:
+  Original nodes: 1500
+  Generated nodes: 100
+  Total nodes: 1600
+  Original edges: 98186
+  Total edges: 104136
+  Novelty score: 1.0000
+  Novelty percentage: 75.0%
+
+EMAIL:
+  Original nodes: 2000
+  Generated nodes: 100
+  Total nodes: 2100
+  Original edges: 7984
+  Total edges: 13934
+  Novelty score: 1.0000
+  Novelty percentage: 75.0%
+================================================================================
+
+All results saved to results/ directory
+================================================================================

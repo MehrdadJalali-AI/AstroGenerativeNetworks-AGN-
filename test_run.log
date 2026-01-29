@@ -1,0 +1,101 @@
+/Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/torch_geometric/typing.py:68: UserWarning: An issue occurred while importing 'pyg-lib'. Disabling its usage. Stacktrace: dlopen(/Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/libpyg.so, 0x0006): Library not loaded: /Library/Frameworks/Python.framework/Versions/3.9/Python
+  Referenced from: <2695749E-A917-3F14-B0DA-2A4914D2853D> /Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/libpyg.so
+  Reason: tried: '/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file), '/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file)
+  warnings.warn(f"An issue occurred while importing 'pyg-lib'. "
+/Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/torch_geometric/typing.py:124: UserWarning: An issue occurred while importing 'torch-sparse'. Disabling its usage. Stacktrace: dlopen(/Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/libpyg.so, 0x0006): Library not loaded: /Library/Frameworks/Python.framework/Versions/3.9/Python
+  Referenced from: <2695749E-A917-3F14-B0DA-2A4914D2853D> /Users/mehrdadjalali/Library/Python/3.9/lib/python/site-packages/libpyg.so
+  Reason: tried: '/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file), '/Library/Frameworks/Python.framework/Versions/3.9/Python' (no such file)
+  warnings.warn(f"An issue occurred while importing 'torch-sparse'. "
+================================================================================
+GENERALIZED ASTRO GENERATIVE NETWORK (AGN)
+================================================================================
+Using device: cpu
+Dataset portion: 100.0%
+Number of generated nodes: 100
+================================================================================
+
+
+================================================================================
+Processing Dataset: KARATE
+================================================================================
+
+Loaded karate dataset:
+  Nodes: 1200
+  Edges: 95914
+  Features shape: (1200, 4)
+
+Model Architecture:
+  Input features: 4
+  Hidden dimension: 64
+  Latent dimension: 32
+  GCN layers: 2
+
+Training model...
+Starting training for 200 epochs...
+Training on cpu
+Nodes: 1200, Features: 4
+Epoch 10/200, Loss: 4.5889
+Epoch 20/200, Loss: 4.5239
+Epoch 30/200, Loss: 4.3591
+Epoch 40/200, Loss: 4.2873
+Epoch 50/200, Loss: 4.2649
+Epoch 60/200, Loss: 4.2314
+Epoch 70/200, Loss: 4.2804
+Epoch 80/200, Loss: 4.2951
+Early stopping at epoch 83
+Training completed. Best loss: 4.1807
+
+Generating new nodes...
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 101864
+  New edges: 5950
+
+Evaluating results...
+Metrics comparison saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/karate_network_metrics_comparison.csv
+Novelty analysis saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/karate_novelty_analysis.csv
+Evaluation plots saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/plots
+
+================================================================================
+EVALUATION REPORT: KARATE
+================================================================================
+
+Topology Metrics:
+  Nodes: 1200 -> 1300 (+100)
+  Edges: 95914 -> 101864 (+5950)
+  Density: 0.133325 -> 0.120642
+  Avg Degree: 159.86 -> 156.71
+  Clustering: 0.1974 -> 0.2484
+  Avg Path Length: 1.8667 -> 1.9105
+  Modularity: 0.4138 -> 0.4363
+  Assortativity: -0.0032 -> 0.3910
+
+Novelty Analysis:
+  Average Novelty Score: 1.0000 ± 1.0853
+  Novelty Percentage (threshold-based): 75.0%
+  Avg Min Distance to Original: 0.0008
+  Avg Mean Distance to Original: 0.0370
+  Duplication Rate: 0.0000
+================================================================================
+
+
+Running comprehensive evaluation with baselines...
+
+============================================================
+Evaluating AGN on karate
+============================================================
+Generated 100 nodes saved to /Users/mehrdadjalali/Documents/SRH_Research/Astro-Generative Network (AGN) - Genreal/results/generated/generated_nodes.csv
+
+Generation Summary:
+  Original nodes: 1200
+  Generated nodes: 100
+  Total nodes: 1300
+  Original edges: 95914
+  Total edges: 101864
+  New edges: 5950
+⚠ Comprehensive evaluation failed for karate: index 1216 is out of bounds for axis 0 with size 1200

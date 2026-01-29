@@ -1,0 +1,508 @@
+å================================================================================
+ASTRO GENERATIVE NETWORK (AGN) - METHODOLOGY
+Step-by-Step Methods and Algorithms
+================================================================================
+
+1. OVERVIEW
+================================================================================
+
+The Astro Generative Network (AGN) is a framework for generating new nodes and 
+edges in networks using Variational Graph Autoencoders (VGAE). The system learns 
+from existing network data to generate novel nodes with realistic features and 
+connects them to the network based on feature similarity.
+
+Key Components:
+- Graph Encoder: Encodes nodes into latent space using Graph Convolutional Networks
+- Node Decoder: Generates node features from latent representations
+- Edge Decoder: Predicts edge probabilities between nodes
+- Similarity-based Insertion: Connects generated nodes to existing network
+
+================================================================================
+2. DATA PREPROCESSING
+================================================================================
+
+Step 2.1: Network Loading
+---------------------------
+Input: Network graph G = (V, E) where V = nodes, E = edges
+
+For each dataset:
+- Karate Club: Load community-structured network (1200 nodes)
+- Facebook Ego: Load multi-community social network (1500 nodes)
+- Email Network: Load scale-free network (2000 nodes)
+
+Step 2.2: Node Feature Extraction
+-----------------------------------
+For each node v in V:
+    features[v] = [
+        degree(v),                    # Node degree
+        clustering_coefficient(v),    # Local clustering
+        num_neighbors(v),             # Number of neighbors
+        avg_neighbor_degree(v),        # Average degree of neighbors
+        ...                           # Additional features
+    ]
+
+Step 2.3: Feature Normalization
+--------------------------------
+1. Standardize features using StandardScaler:
+   features_std = (features - mean) / std
+
+2. Scale to [0, 1] range:
+   features_min = min(features_std, axis=0)
+   features_max = max(features_std, axis=0)
+   features_normalized = (features_std - features_min) / (features_max - features_min)
+
+3. Store normalization parameters for denormalization:
+   scaler, feature_min, feature_max
+
+Step 2.4: Graph Conversion
+---------------------------
+Convert NetworkX graph to PyTorch Geometric format:
+- Node features: X ∈ R^(N×d) where N = num_nodes, d = feature_dim
+- Edge indices: edge_index ∈ R^(2×M) where M = num_edges
+- Ensure undirected graph: edge_index = to_undirected(edge_index)
+
+================================================================================
+3. MODEL ARCHITECTURE
+================================================================================
+
+Step 3.1: Graph Encoder
+------------------------
+Architecture: Graph Convolutional Network (GCN)
+
+Input: 
+- Node features X ∈ R^(N×d)
+- Edge indices edge_index
+
+Layers:
+1. GCN Layer 1:
+   H^(1) = ReLU(GCNConv(X, hidden_dim))
+   
+2. GCN Layers 2...L:
+   H^(l) = ReLU(GCNConv(H^(l-1), hidden_dim))
+   
+3. Mean Layer:
+   μ = GCNConv(H^(L), latent_dim)
+   
+4. Log Variance Layer:
+   log(σ²) = GCNConv(H^(L), latent_dim)
+
+Output:
+- μ ∈ R^(N×latent_dim): Mean of latent distribution
+- log(σ²) ∈ R^(N×latent_dim): Log variance of latent distribution
+
+Step 3.2: Reparameterization Trick
+------------------------------------
+Sample latent representation z from learned distribution:
+
+z = μ + ε ⊙ σ
+
+where:
+- ε ~ N(0, I) (standard normal noise)
+- σ = exp(0.5 × log(σ²))
+- ⊙ denotes element-wise multiplication
+
+Step 3.3: Node Decoder
+-----------------------
+Architecture: Multi-layer Perceptron (MLP)
+
+Input: Latent vector z ∈ R^(latent_dim)
+
+Layers:
+1. Linear(z, hidden_dim) → ReLU
+2. Linear(hidden_dim, hidden_dim) → ReLU
+3. Linear(hidden_dim, feature_dim) → Sigmoid
+
+Output: Generated node features f_gen ∈ [0, 1]^feature_dim
+
+Step 3.4: Edge Decoder
+-----------------------
+Method: Inner Product Decoder
+
+For edge (i, j):
+    edge_probability = σ(z_i^T · z_j)
+
+where:
+- z_i, z_j are latent representations of nodes i and j
+- σ is sigmoid function
+- Higher inner product → higher edge probability
+
+================================================================================
+4. TRAINING PROCESS
+================================================================================
+
+Step 4.1: Data Preparation
+----------------------------
+1. Create PyTorch Geometric Data object:
+   data = Data(x=features, edge_index=edge_index)
+
+2. Split edges for training/validation/test:
+   - Use RandomLinkSplit with:
+     * num_val = 0.1 (10% validation)
+     * num_test = 0.1 (10% test)
+     * add_negative_train_samples = True
+
+3. Training data contains:
+   - Positive edges: Existing edges in network
+   - Negative edges: Randomly sampled non-edges
+
+Step 4.2: Loss Function
+------------------------
+VGAE Loss = Reconstruction Loss + β × KL Divergence
+
+Reconstruction Loss:
+L_recon = -log(P(pos_edges)) - log(1 - P(neg_edges))
+
+where:
+- P(pos_edges) = edge probabilities for positive edges
+- P(neg_edges) = edge probabilities for negative edges
+
+KL Divergence:
+L_KL = -0.5 × Σ(1 + log(σ²) - μ² - σ²)
+
+Total Loss:
+L_total = L_recon + β × L_KL
+
+where β = 1.0 (weight for KL term)
+
+Step 4.3: Training Loop
+------------------------
+For each epoch:
+    1. Forward pass:
+       - Encode: μ, log(σ²) = encoder(X, edge_index)
+       - Sample: z = reparameterize(μ, log(σ²))
+       - Decode edges: P(edges) = decode_edges(z, edge_index)
+    
+    2. Compute loss:
+       L = loss_function(P(pos_edges), P(neg_edges), μ, log(σ²))
+    
+    3. Backward pass:
+       - Compute gradients: ∇L
+       - Update parameters: θ = θ - α × ∇L
+    
+    4. Early stopping:
+       - Monitor validation loss
+       - Stop if no improvement for patience epochs
+       - Save best model checkpoint
+
+Optimizer: Adam
+- Learning rate: α = 0.001
+- Weight decay: λ = 1e-5
+
+Step 4.4: Model Checkpointing
+------------------------------
+Save best model when validation loss decreases:
+- File: results/models/best_agn_model.pth
+- Contains: model.state_dict()
+
+================================================================================
+5. GENERATION PROCESS
+================================================================================
+
+Step 5.1: Latent Space Sampling
+--------------------------------
+Sample new latent vectors from prior distribution:
+
+For i = 1 to num_generated_nodes:
+    z_i ~ N(0, I)  # Standard normal distribution
+    z_i ∈ R^(latent_dim)
+
+Step 5.2: Node Feature Generation
+-----------------------------------
+Decode latent vectors to node features:
+
+For each z_i:
+    f_i = decoder(z_i)
+    f_i ∈ [0, 1]^feature_dim
+
+Denormalize features:
+    f_i_denorm = f_i × (feature_max - feature_min) + feature_min
+
+Step 5.3: Similarity Computation
+----------------------------------
+Compute cosine similarity between generated and original nodes:
+
+1. Normalize features to unit vectors:
+   f_orig_norm = f_orig / ||f_orig||
+   f_gen_norm = f_gen / ||f_gen||
+
+2. Compute similarity matrix:
+   S = f_gen_norm × f_orig_norm^T
+   S[i, j] = cosine_similarity(f_gen[i], f_orig[j])
+
+Step 5.4: Node Insertion
+-------------------------
+Insert generated nodes into original graph:
+
+1. Create augmented graph:
+   G_aug = G_original.copy()
+
+2. Add generated nodes:
+   For each generated node i:
+       node_id = N_original + i
+       G_aug.add_node(node_id, is_generated=True)
+
+3. Connect to top-k nearest neighbors:
+   For each generated node i:
+       top_k_indices = argsort(S[i, :])[-k:]
+       For each neighbor j in top_k_indices:
+           if S[i, j] >= threshold:
+               G_aug.add_edge(node_id, j, weight=S[i, j])
+
+4. Connect generated nodes to each other:
+   For each pair (i, j) of generated nodes:
+       if cosine_similarity(f_gen[i], f_gen[j]) >= threshold:
+           G_aug.add_edge(node_id_i, node_id_j, weight=similarity)
+
+Parameters:
+- k = 10 (number of nearest neighbors)
+- threshold = 0.5 (minimum similarity)
+
+Step 5.5: Save Generated Nodes
+-------------------------------
+Save generated node features to CSV:
+- File: results/generated/generated_nodes.csv
+- Format: CSV with feature columns
+
+================================================================================
+6. EVALUATION METHODS
+================================================================================
+
+Step 6.1: Network Topology Metrics
+-----------------------------------
+Compute comprehensive metrics for G_before and G_after:
+
+Basic Metrics:
+- num_nodes: |V|
+- num_edges: |E|
+- density: 2|E| / (|V|(|V|-1))
+
+Degree Statistics:
+- avg_degree: mean(degree(v) for v in V)
+- median_degree: median(degree(v))
+- std_degree: std(degree(v))
+- min_degree, max_degree
+
+Connectivity:
+- num_components: number of connected components
+- giant_component_size: size of largest component
+- largest_component_ratio: giant_component_size / num_nodes
+
+Clustering:
+- avg_clustering: mean(clustering_coefficient(v))
+- std_clustering: std(clustering_coefficient(v))
+- transitivity: global clustering coefficient
+
+Path Metrics:
+- avg_shortest_path_length: mean(shortest_path(u, v) for all pairs)
+- diameter: max(shortest_path(u, v))
+
+Centrality (for networks ≤1000 nodes, or sampled for larger):
+- avg_betweenness: mean(betweenness_centrality(v))
+- max_betweenness: max(betweenness_centrality(v))
+- avg_eigenvector: mean(eigenvector_centrality(v))
+- max_eigenvector: max(eigenvector_centrality(v))
+- avg_pagerank: mean(pagerank(v))
+- max_pagerank: max(pagerank(v))
+
+Community:
+- modularity: modularity score from community detection
+- num_communities: number of detected communities
+
+Assortativity:
+- assortativity: degree_assortativity_coefficient(G)
+
+Step 6.2: Novelty Analysis
+---------------------------
+Measure how different generated nodes are from original:
+
+1. Compute pairwise distances:
+   D = 1 - cosine_similarity(all_features)
+   where all_features = [original_features; generated_features]
+
+2. For each generated node i:
+   - min_distance_to_original[i] = min(D[i, j] for j in original_nodes)
+   - mean_distance_to_original[i] = mean(D[i, j] for j in original_nodes)
+   - max_distance_to_original[i] = max(D[i, j] for j in original_nodes)
+
+3. Compute novelty scores:
+   novelty_score[i] = min_distance_to_original[i] / mean(min_distance_to_original)
+
+4. Classify as novel:
+   is_novel[i] = (min_distance_to_original[i] > percentile_25(min_distance_to_original))
+
+Step 6.3: Visualization
+-------------------------
+Generate 5 types of plots:
+
+1. Network Comparison:
+   - Before: Original network layout
+   - After: Original (blue) + Generated (red) nodes
+   - Sample to 500 nodes if network is too large
+
+2. Degree Distribution:
+   - Histogram comparing degree distributions before/after
+   - Density plots overlaid
+
+3. Metrics Comparison:
+   - Bar chart of key metrics before/after
+   - Normalized values for comparison
+
+4. PCA Visualization:
+   - 2D PCA projection of feature space
+   - Original nodes (blue) vs Generated nodes (red)
+
+5. Novelty Analysis:
+   - Histogram of minimum distances to original
+   - Bar chart of novelty scores
+
+Step 6.4: CSV Export
+--------------------
+Generate two CSV files per dataset:
+
+1. Network Metrics Comparison:
+   - Columns: Metric, Before, After, Change, Change_Percent
+   - Rows: All computed metrics
+
+2. Novelty Analysis:
+   - Columns: Node_Index, Min_Distance_to_Original, Mean_Distance_to_Original,
+             Max_Distance_to_Original, Min_Distance_to_Generated,
+             Novelty_Score, Is_Novel
+   - Rows: One per generated node
+
+================================================================================
+7. MATHEMATICAL FORMULATIONS
+================================================================================
+
+Graph Convolutional Layer:
+---------------------------
+H^(l+1) = σ(D^(-1/2) A D^(-1/2) H^(l) W^(l))
+
+where:
+- A: Adjacency matrix
+- D: Degree matrix (diagonal)
+- H^(l): Node features at layer l
+- W^(l): Learnable weight matrix
+- σ: Activation function (ReLU)
+
+Variational Lower Bound:
+------------------------
+log p(X, A) ≥ E_q(z|X,A)[log p(A|z)] - KL(q(z|X,A) || p(z))
+
+where:
+- X: Node features
+- A: Adjacency matrix
+- z: Latent variables
+- q(z|X,A): Encoder (approximate posterior)
+- p(z): Prior (standard normal)
+- p(A|z): Decoder (edge probabilities)
+
+Edge Probability:
+----------------
+P(A_ij = 1 | z_i, z_j) = σ(z_i^T z_j)
+
+where σ is sigmoid function.
+
+Cosine Similarity:
+------------------
+similarity(f_i, f_j) = (f_i · f_j) / (||f_i|| × ||f_j||)
+
+Distance:
+---------
+distance(f_i, f_j) = 1 - similarity(f_i, f_j)
+
+================================================================================
+8. ALGORITHM SUMMARY
+================================================================================
+
+Algorithm: AGN Training
+------------------------
+1. Load network G = (V, E) and extract features X
+2. Normalize features X → X_norm
+3. Initialize encoder, decoder with random weights
+4. For epoch = 1 to max_epochs:
+     a. Encode: μ, log(σ²) = encoder(X_norm, edge_index)
+     b. Sample: z = μ + ε ⊙ exp(0.5 × log(σ²))
+     c. Decode edges: P = decode_edges(z, edge_index)
+     d. Compute loss: L = L_recon + β × L_KL
+     e. Backpropagate and update weights
+     f. If validation loss improved: save checkpoint
+     g. If early stopping: break
+5. Return trained model
+
+Algorithm: AGN Generation
+-------------------------
+1. Load trained model
+2. Sample latent vectors: z_i ~ N(0, I) for i = 1...N_gen
+3. Decode to features: f_i = decoder(z_i) for each i
+4. Denormalize: f_i = f_i × (max - min) + min
+5. Compute similarity: S = cosine_similarity(f_gen, f_orig)
+6. Create augmented graph: G_aug = G_orig.copy()
+7. For each generated node i:
+     a. Add node to G_aug
+     b. Find top-k neighbors: top_k = argsort(S[i, :])[-k:]
+     c. For each neighbor j in top_k:
+         if S[i, j] >= threshold: add_edge(i, j)
+8. Connect generated nodes if similar enough
+9. Return G_aug, generated_features
+
+Algorithm: AGN Evaluation
+-------------------------
+1. Compute metrics_before = compute_topology_metrics(G_before)
+2. Compute metrics_after = compute_topology_metrics(G_after)
+3. Compute novelty = novelty_analysis(f_orig, f_gen)
+4. Generate plots: network, degree, metrics, PCA, novelty
+5. Save CSV: metrics_comparison.csv, novelty_analysis.csv
+6. Print summary report
+
+================================================================================
+9. PARAMETER SETTINGS
+================================================================================
+
+Model Architecture:
+- Hidden dimension: 64
+- Latent dimension: 32
+- Number of GCN layers: 2
+
+Training:
+- Epochs: 200
+- Batch size: 32
+- Learning rate: 0.001
+- Weight decay: 1e-5
+- β (KL weight): 1.0
+- Early stopping patience: 20
+
+Generation:
+- Number of generated nodes: 100
+- Number of neighbors (k): 10
+- Similarity threshold: 0.5
+
+Datasets:
+- Karate Club: 1200 nodes
+- Facebook Ego: 1500 nodes
+- Email Network: 2000 nodes
+- Dataset portion: 1.0 (full dataset)
+
+================================================================================
+10. OUTPUT FILES
+================================================================================
+
+Models:
+- results/models/best_agn_model.pth
+
+Generated Data:
+- results/generated/generated_nodes.csv
+
+Plots (per dataset):
+- {dataset}_network_comparison.png
+- {dataset}_degree_distribution.png
+- {dataset}_metrics_comparison.png
+- {dataset}_pca.png
+- {dataset}_novelty.png
+
+CSV Reports (per dataset):
+- {dataset}_network_metrics_comparison.csv
+- {dataset}_novelty_analysis.csv
+
+================================================================================
+END OF METHODOLOGY DOCUMENT
+================================================================================

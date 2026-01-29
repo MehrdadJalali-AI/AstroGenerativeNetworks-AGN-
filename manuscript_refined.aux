@@ -1,0 +1,113 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\providecommand \oddpage@label [2]{}
+\citation{goodfellow2014generative}
+\citation{kingma2013auto}
+\citation{kipf2016variational}
+\citation{kingma2013auto}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
+\citation{you2018graphrnn}
+\citation{simonovsky2018graphvae}
+\citation{wang2018graphgan}
+\citation{wang2018graphgan,bojchevski2018netgan}
+\citation{barabasi1999emergence}
+\citation{holland1983stochastic}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Methodology}{3}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Problem Formulation}{3}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Data Preprocessing and Feature Extraction}{3}{subsection.3.2}\protected@file@percent }
+\citation{kipf2016semi}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Graph Encoder}{4}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Variational Formulation}{4}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Reparameterization Trick}{5}{subsection.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Node Decoder}{5}{subsection.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Edge Decoder}{5}{subsection.3.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.8}Training Objective}{5}{subsection.3.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.9}Training Procedure}{6}{subsection.3.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.10}Similarity-Based Node Insertion}{6}{subsection.3.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.11}Algorithm Pseudocode}{7}{subsection.3.11}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces AGN Training}}{7}{algorithm.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experimental Setup}{7}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Datasets}{7}{subsection.4.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces AGN Node Generation and Insertion}}{8}{algorithm.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Model Architecture and Hyperparameters}{9}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Baseline Methods}{9}{subsection.4.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Baseline Methods for Comparison}}{10}{table.1}\protected@file@percent }
+\newlabel{tab:baselines}{{1}{10}{Baseline Methods for Comparison}{table.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Evaluation Protocol}{10}{subsection.4.4}\protected@file@percent }
+\citation{hagberg2008exploring}
+\citation{paszke2019pytorch}
+\citation{fey2019fast}
+\citation{hagberg2008exploring}
+\citation{harris2020array}
+\citation{pedregosa2011scikit}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Implementation Details}{11}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results and Analysis}{11}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Topology Preservation}{11}{subsection.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Topology Metrics Summary}}{12}{table.2}\protected@file@percent }
+\newlabel{tab:topology_summary}{{2}{12}{Topology Metrics Summary}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Network Visualization and Metrics Comparison}{12}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Degree Distribution Analysis}{12}{subsection.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Network structure comparison for (left) Community-SBM, (center) Facebook Ego, and (right) Email Communication networks. Left panels show original networks; right panels show augmented networks with generated nodes highlighted in red. Networks are sampled to 500 nodes for visualization clarity.}}{13}{figure.1}\protected@file@percent }
+\newlabel{fig:network_comparison}{{1}{13}{Network structure comparison for (left) Community-SBM, (center) Facebook Ego, and (right) Email Communication networks. Left panels show original networks; right panels show augmented networks with generated nodes highlighted in red. Networks are sampled to 500 nodes for visualization clarity}{figure.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Normalized metrics comparison for (left) Community-SBM, (center) Facebook Ego, and (right) Email Communication networks. Blue bars represent original networks; red bars represent augmented networks. Metrics are normalized by their maximum absolute values for visualization.}}{13}{figure.2}\protected@file@percent }
+\newlabel{fig:metrics_comparison}{{2}{13}{Normalized metrics comparison for (left) Community-SBM, (center) Facebook Ego, and (right) Email Communication networks. Blue bars represent original networks; red bars represent augmented networks. Metrics are normalized by their maximum absolute values for visualization}{figure.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Degree distribution comparisons for (left) Community-SBM, (center) Facebook Ego, and (right) Email Communication networks. Blue histograms represent original networks, red histograms represent augmented networks after AGN node insertion. Distributions are normalized to density for comparison.}}{13}{figure.3}\protected@file@percent }
+\newlabel{fig:degree_dist}{{3}{13}{Degree distribution comparisons for (left) Community-SBM, (center) Facebook Ego, and (right) Email Communication networks. Blue histograms represent original networks, red histograms represent augmented networks after AGN node insertion. Distributions are normalized to density for comparison}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Novelty Analysis}{14}{subsection.5.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Novelty Analysis}}{14}{table.3}\protected@file@percent }
+\newlabel{tab:novelty}{{3}{14}{Novelty Analysis}{table.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Novelty analysis for (left) Community-SBM, (center) Facebook Ego, and (right) Email Communication networks. Left panels show histograms of minimum distances to original nodes (computed as 1 - cosine similarity); right panels show novelty scores with green bars indicating novel nodes (top 75\% by distance).}}{14}{figure.4}\protected@file@percent }
+\newlabel{fig:novelty}{{4}{14}{Novelty analysis for (left) Community-SBM, (center) Facebook Ego, and (right) Email Communication networks. Left panels show histograms of minimum distances to original nodes (computed as 1 - cosine similarity); right panels show novelty scores with green bars indicating novel nodes (top 75\% by distance)}{figure.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Baseline Comparison}{14}{subsection.5.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Topology Metrics Comparison: AGN vs Baselines (Community-SBM)}}{15}{table.4}\protected@file@percent }
+\newlabel{tab:baseline_topology}{{4}{15}{Topology Metrics Comparison: AGN vs Baselines (Community-SBM)}{table.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Task-Level Evaluation}{15}{subsection.5.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Task-Level Evaluation: AGN vs Baselines (Community-SBM)}}{15}{table.5}\protected@file@percent }
+\newlabel{tab:task_evaluation}{{5}{15}{Task-Level Evaluation: AGN vs Baselines (Community-SBM)}{table.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}Ablation and Sensitivity Analysis}{16}{subsection.5.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Ablation Study: Component Analysis (Community-SBM)}}{16}{table.6}\protected@file@percent }
+\newlabel{tab:ablation}{{6}{16}{Ablation Study: Component Analysis (Community-SBM)}{table.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Sensitivity Analysis: Hyperparameter Variation (Community-SBM)}}{17}{table.7}\protected@file@percent }
+\newlabel{tab:sensitivity}{{7}{17}{Sensitivity Analysis: Hyperparameter Variation (Community-SBM)}{table.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.8}Dataset-Specific Observations}{17}{subsection.5.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Dataset-Specific Benefits of Artificial Nodes}{18}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Community-SBM: Robustness Analysis and Small-Network Augmentation}{18}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Facebook Ego: Modeling Unseen Users and Reducing Sampling Bias}{18}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Email Network: Improving Connectivity and Modeling Organizational Expansion}{19}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{20}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Why Results Validate AGN}{20}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Why Generation is Not Memorization}{21}{subsection.7.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces PCA visualizations of original (blue circles) vs. generated (red triangles) nodes in feature space for (left) Community-SBM, (center) Facebook Ego, and (right) Email Communication networks. Features are projected onto the first two principal components. Generated nodes are distributed throughout feature space, demonstrating novelty while maintaining compatibility with original node distribution.}}{21}{figure.5}\protected@file@percent }
+\newlabel{fig:pca}{{5}{21}{PCA visualizations of original (blue circles) vs. generated (red triangles) nodes in feature space for (left) Community-SBM, (center) Facebook Ego, and (right) Email Communication networks. Features are projected onto the first two principal components. Generated nodes are distributed throughout feature space, demonstrating novelty while maintaining compatibility with original node distribution}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Failure Modes Avoided}{22}{subsection.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Sanity Checks and Controls}{22}{subsection.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Generalization Capability}{22}{subsection.7.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6}Limitations of Evaluation}{22}{subsection.7.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Limitations and Future Work}{23}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Reproducibility and Availability}{23}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Ethical Considerations}{24}{section.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}Conclusion}{24}{section.11}\protected@file@percent }
+\bibstyle{plainnat}
+\bibcite{goodfellow2014generative}{{1}{}{{}}{{}}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Detailed Network Metrics}{25}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Novelty Analysis Details}{25}{appendix.B}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {C}Visualization Figures}{25}{appendix.C}\protected@file@percent }
+\bibcite{kingma2013auto}{{2}{}{{}}{{}}}
+\bibcite{kipf2016variational}{{3}{}{{}}{{}}}
+\bibcite{kipf2016semi}{{4}{}{{}}{{}}}
+\bibcite{you2018graphrnn}{{5}{}{{}}{{}}}
+\bibcite{simonovsky2018graphvae}{{6}{}{{}}{{}}}
+\bibcite{wang2018graphgan}{{7}{}{{}}{{}}}
+\bibcite{bojchevski2018netgan}{{8}{}{{}}{{}}}
+\bibcite{barabasi1999emergence}{{9}{}{{}}{{}}}
+\bibcite{holland1983stochastic}{{10}{}{{}}{{}}}
+\bibcite{hagberg2008exploring}{{11}{}{{}}{{}}}
+\bibcite{paszke2019pytorch}{{12}{}{{}}{{}}}
+\bibcite{fey2019fast}{{13}{}{{}}{{}}}
+\bibcite{harris2020array}{{14}{}{{}}{{}}}
+\bibcite{pedregosa2011scikit}{{15}{}{{}}{{}}}
+\providecommand\NAT@force@numbers{}\NAT@force@numbers
+\gdef \@abspage@last{26}
