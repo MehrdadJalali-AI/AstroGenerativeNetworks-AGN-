@@ -186,8 +186,10 @@ If you use this code, please cite:
 
 ## License
 
-[Specify your license here]
+The source code is released under the MIT License for research and academic use.
+The accompanying manuscript is under review and not yet published.
+
 
 ## Contact
 
-[Your contact information]
+mehrdad.jalali@srh.de
