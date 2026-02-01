@@ -1,10 +1,15 @@
 # Astro Generative Network (AGN) - Generalized Version
 
+<p align="center">
+  <img src="AGN_Cover.png" alt="Astro Generative Network (AGN) cover" width="500">
+</p>
+
 **A framework for generating new nodes and edges in any network using Variational Graph Autoencoders (VGAE).**
 
 ## Overview
 
 This project implements the Astro Generative Network (AGN) - a framework for generating new nodes and edges in any network type. The system learns from existing network data to generate new nodes with appropriate features and connects them to the network based on similarity.
+
 
 ## Key Features
 
