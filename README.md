@@ -1,4 +1,4 @@
-# Astro Generative Network (AGN) - Generalized Version
+# Astro Generative Network (AGN) 
 
 <p align="center">
   <img src="AGN_Cover.png" alt="Astro Generative Network (AGN) cover" width="500">
