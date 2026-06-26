@@ -11,7 +11,8 @@ from .config import RESULTS_DIR, PLOTS_DIR, NUM_GENERATED_NODES, K_NEIGHBORS, SI
 from .evaluation import compute_topology_metrics, novelty_analysis, save_metrics_to_csv
 from .baselines import random_attachment, preferential_attachment, knn_feature_space, vanilla_vgae
 from .task_evaluation import evaluate_link_prediction, evaluate_node_classification, evaluate_community_stability, evaluate_robustness_missing_edges
-from .generation import generate_and_insert, generate_new_nodes
+from .generation import generate_new_nodes
+from .generation_variants import generate_and_insert_variant
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -51,9 +52,14 @@ def run_comprehensive_evaluation(model, G_original, original_features, dataset_n
     print(f"Evaluating AGN on {dataset_name}")
     print(f"{'='*60}")
     
-    G_agn, features_agn, node_ids_agn = generate_and_insert(
-        model, G_original, original_features, 
-        num_samples=num_generated, k_neighbors=k, threshold=threshold
+    G_agn, features_agn, node_ids_agn = generate_and_insert_variant(
+        model,
+        G_original,
+        original_features,
+        variant="no_gg",
+        num_samples=num_generated,
+        k_neighbors=k,
+        threshold=threshold,
     )
     
     metrics_agn_before = compute_topology_metrics(G_original)

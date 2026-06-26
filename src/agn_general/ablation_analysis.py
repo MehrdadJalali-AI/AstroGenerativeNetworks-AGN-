@@ -8,7 +8,8 @@ import networkx as nx
 import os
 from .config import RESULTS_DIR, NUM_GENERATED_NODES, K_NEIGHBORS, SIMILARITY_THRESHOLD, RANDOM_SEED
 from .evaluation import compute_topology_metrics, novelty_analysis
-from .generation import generate_and_insert, generate_new_nodes, insert_nodes_to_graph
+from .generation import generate_new_nodes, insert_nodes_to_graph
+from .generation_variants import generate_and_insert_variant
 
 
 def ablation_without_similarity(model, G_original, original_features, num_generated=NUM_GENERATED_NODES):
@@ -81,9 +82,14 @@ def sensitivity_analysis(model, G_original, original_features, num_generated=NUM
             print(f"\nSensitivity: k={k}, threshold={threshold}")
             
             try:
-                G_aug, features_aug, _ = generate_and_insert(
-                    model, G_original, original_features,
-                    num_samples=num_generated, k_neighbors=k, threshold=threshold
+                G_aug, features_aug, _ = generate_and_insert_variant(
+                    model,
+                    G_original,
+                    original_features,
+                    variant="no_gg",
+                    num_samples=num_generated,
+                    k_neighbors=k,
+                    threshold=threshold,
                 )
                 
                 metrics = compute_topology_metrics(G_aug)

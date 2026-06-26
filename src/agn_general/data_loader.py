@@ -9,9 +9,9 @@ import networkx as nx
 import torch
 from torch_geometric.data import Data
 from torch_geometric.utils import from_networkx, to_undirected
-from sklearn.preprocessing import StandardScaler
 import os
 from .config import DATA_DIR, DATASET_PORTION, RANDOM_SEED
+from .normalization import fit_two_stage_normalize, tuple_from_normalizer
 
 np.random.seed(RANDOM_SEED)
 
@@ -152,16 +152,10 @@ def load_email_network(portion=1.0):
     return G, features, data.edge_index
 
 def normalize_features(features):
-    """Normalize features to [0, 1] range"""
-    scaler = StandardScaler()
-    features_normalized = scaler.fit_transform(features)
-    # Scale to [0, 1]
-    features_min = features_normalized.min(axis=0)
-    features_max = features_normalized.max(axis=0)
-    feature_range = features_max - features_min
-    feature_range[feature_range == 0] = 1.0
-    features_scaled = (features_normalized - features_min) / feature_range
-    return features_scaled, scaler, features_min, features_max
+    """Z-score then per-feature min--max to [0, 1]; returns scaler tuple for denormalization."""
+    scaled, normalizer = fit_two_stage_normalize(features)
+    scaler, feat_min, feat_max = tuple_from_normalizer(normalizer)
+    return scaled, scaler, feat_min, feat_max
 
 def load_dataset(dataset_name="karate", portion=DATASET_PORTION):
     """

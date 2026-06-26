@@ -13,7 +13,7 @@ from .config import (
 from .data_loader import load_dataset
 from .model import GraphEncoder, NodeDecoder, VGAE
 from .training import run_training
-from .generation import generate_and_insert
+from .generation_variants import generate_and_insert_variant
 from .evaluation import generate_evaluation_report
 
 def main():
@@ -62,16 +62,18 @@ def main():
             
             # Train model
             print(f"\nTraining model...")
-            losses = run_training(
+            train_info = run_training(
                 model, features_tensor, edge_index_tensor,
-                epochs=EPOCHS, lr=LEARNING_RATE
+                epochs=EPOCHS, lr=LEARNING_RATE,
             )
+            losses = train_info.get("train_losses", [])
             
             # Generate new nodes and insert into graph
             print(f"\nGenerating new nodes...")
-            G_augmented, generated_features, generated_node_ids = generate_and_insert(
-                model, G, features, num_samples=NUM_GENERATED_NODES,
-                k_neighbors=K_NEIGHBORS, threshold=SIMILARITY_THRESHOLD
+            G_augmented, generated_features, generated_node_ids = generate_and_insert_variant(
+                model, G, features, variant="no_gg",
+                num_samples=NUM_GENERATED_NODES,
+                k_neighbors=K_NEIGHBORS, threshold=SIMILARITY_THRESHOLD,
             )
             
             # Evaluate
